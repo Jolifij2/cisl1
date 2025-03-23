@@ -6,7 +6,7 @@ using namespace std;
 
 // Правая часть ОДУ: y' = f(t, y)
 double f(double t, double y) {
-    return y - t * t + 1; // Пример: y' = y - t^2 + 1
+    return y - t * t + 1; 
 }
 
 // Метод Эйлера
