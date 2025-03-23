@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// Правая часть ОДУ: y' = f(t, y)
+double f(double t, double y) {
+    return y - t * t + 1; // Пример: y' = y - t^2 + 1
+}
+
+// Метод Эйлера
+vector<pair<double, double>> euler(double t0, double y0, double h, double T) {
+    vector<pair<double, double>> result;
+    result.push_back(make_pair(t0, y0));
+
+    double t = t0;
+    double y = y0;
+
+    while (t < T) {
+        double y_next = y + h * f(t, y);
+        t += h;
+        result.push_back(make_pair(t, y_next));
+        y = y_next;
+    }
+
+    return result;
+}
+
+int main() {
+    // Начальные условия и параметры
+    double t0 = 0.0;   // Начальное время
+    double y0 = 0.5;   // Начальное значение y(t0)
+    double h = 0.1;   // Шаг интегрирования
+    double T = 2.0;   // Конечное время
+
+    // Решение методом Эйлера
+    vector<pair<double, double>> solution = euler(t0, y0, h, T);
+
+    // Вывод результатов
+    cout << "Решение методом Эйлера:" << endl;
+    cout << "t\t\ty" << endl;
+    cout << "------------------------" << endl;
+    for (const auto& point : solution) {
+        cout << fixed << setprecision(6) << point.first << "\t\t" << point.second << endl;
+    }
+
+    return 0;
+}
